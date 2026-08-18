@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <signal.h>
+
+int main(int argc, char *argv[]) {
+    int i, pid;
+
+    pid = fork();
+    if(pid == -1) {
+        perror("ERRORE: fork() fallita");
+        exit(1);    
+    }
+
+    if(pid == 0) {
+        printf("Sono il processo figlio, con PID %d\n", getpid());
+        printf("Attendo 3 secondi\n");
+
+        for(i = 0; i<3; i++) {
+            sleep(1);
+            printf(".\n");
+        }
+
+        execl("usr/bin/cp", "cp", argv[1], argv[2], 0); //0 equivale a null per indicare la fine della lista degli argomenti
+
+        perror("Se arrivo a questo punto, qualcosa è andato storto...\n");
+
+        kill(getppid(), SIGKILL); //Invio il segnale SIGKILL al padre, uccidendolo all'instante prima di terminare con una exit(1)
+        exit(1); //N.B.: Uccido il padre in modo da non farlo tenere in attesa inultimente
+    }
+    else {
+        printf("Sono il processo padre, con PID %d\n", getpid());
+
+        for(i=0;i<6;i++) {
+            sleep(1);
+            printf(".\n");
+        }
+
+        printf("Il processo padre termina.\n");
+
+        exit(0);
+
+    }
+}
