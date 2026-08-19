@@ -28,7 +28,7 @@ void FineLettura(int sem, Buffer* buf) {
 
     buf->numlettori = buf->numlettori - 1;
 
-    if (buf->numlettori = 0) //Se sono l'ultimo lettore devo rilasciare la risorsa per gli scrittori
+    if (buf->numlettori == 0) //Se sono l'ultimo lettore devo rilasciare la risorsa per gli scrittori
         Signal_Sem(sem, MUTEX_LETTORI_SCRITTORI);
 
     Signal_Sem(sem, MUTEX_NUMLETTORI); //Rilascio il mutex per altri lettori
