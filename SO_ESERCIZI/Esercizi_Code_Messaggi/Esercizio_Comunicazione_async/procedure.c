@@ -26,10 +26,10 @@ void Consumatore(int queue) {
     //Ricezione del messaggio
     msgrcv(queue, (void*)&m, sizeof(Messaggio)-sizeof(long), MESSAGGIO, 0);
     printf("MESSAGGIO RICEVUTO: <%s>\n", m.mess);
-    
+    printMsgInfo(queue);
 }
 
-void printfMsgInfo(int queue) {
+void printMsgInfo(int queue) {
     struct msqid_ds mid;
     msgctl(queue, IPC_STAT, &mid);
     char *time_sender = ctime(&mid.msg_stime);
