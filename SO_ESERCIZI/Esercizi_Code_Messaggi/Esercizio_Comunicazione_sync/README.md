@@ -1,0 +1,3 @@
+## Eercizio: Problema Produttori/Consumatori con coda di messaggi sincrona
+
+*Scrivere un’applicazione concorrente che implementi il problema dei Produttori/Consumatori singolo buffer, utilizzando un protocollo di scambio di messaggi con invio sincrono realizzato a partire da primitive asincrone e con una comunicazione indiretta. Il programma crei dei processi che agiscano da produttori e consumatori, utilizzando una coda di messaggi per produrre e consumare valori di tipo char[]. La sincronizzazione tra produttori e consumatori deve avvenire tramite l'utilizzo delle primitive di msgsnd() e msgrcv()* 
